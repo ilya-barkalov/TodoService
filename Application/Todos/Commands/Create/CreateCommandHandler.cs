@@ -24,11 +24,7 @@ namespace Application.Todos.Commands.Create
 
         public async Task<TodoItemDto> Handle(CreateCommand request, CancellationToken cancellationToken)
         {
-            var todoItem = new TodoItem
-            {
-                IsComplete = request.IsComplete,
-                Name = request.Name
-            };
+            var todoItem = new TodoItem(request.Name, request.IsComplete);
 
             await _context.TodoItems.AddAsync(todoItem, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
